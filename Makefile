@@ -7,12 +7,12 @@ else
     include .env.dist
 endif
 
+# Docker
+FRONTEND_CONTAINER:=$(shell docker ps --filter="name=^${PROJECT_NAME}-frontend" -q)
+
 # Makefile config
 .DEFAULT_GOAL:=help
-.PHONY: start stop rebuild copy-enf-file help
-
-test:
-	echo ${PROJECT_NAME}
+.PHONY: start stop enter-frontend rebuild copy-env-file help
 
 ## Docker stack
 start: ## Build and start the Docker stack.
@@ -20,6 +20,9 @@ start: ## Build and start the Docker stack.
 
 stop: ## Stop the Docker stack.
 	@docker compose -p ${PROJECT_NAME} down
+
+enter-frontend: ## Enter the frontend container.
+	@docker exec -it ${FRONTEND_CONTAINER} sh || true
 
 ## Build
 rebuild: ## Forces a rebuild of the custom Docker images.
