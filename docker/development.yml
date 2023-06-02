@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+    frontend:
+        image: ${PROJECT_NAME}-frontend:dev
+        build:
+            context: ./../frontend
+            dockerfile: ./../docker/frontend/Dockerfile
+            cache_from:
+                - ${PROJECT_NAME}-frontend:dev
+        ports:
+            - "4200:4200"
+        volumes:
+            - ./../frontend:/app
