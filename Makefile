@@ -9,14 +9,18 @@ endif
 
 # Docker
 FRONTEND_CONTAINER:=$(shell docker ps --filter="name=^${PROJECT_NAME}-frontend" -q)
+BACKEND_CONTAINER:=$(shell docker ps --filter="name=^${PROJECT_NAME}-backend" -q)
+
+# Permissions
+USER_UID=$(shell id -u)
 
 # Makefile config
 .DEFAULT_GOAL:=help
-.PHONY: start stop enter-frontend rebuild copy-env-file help
+.PHONY: start stop enter-frontend enter-backend rebuild copy-env-file help
 
 ## Docker stack
 start: ## Build and start the Docker stack.
-	@docker compose -f ./docker/development.yml -p ${PROJECT_NAME} up -d --build
+	@docker compose -f ./docker/docker-compose.development.yml -p ${PROJECT_NAME} up -d --build
 
 stop: ## Stop the Docker stack.
 	@docker compose -p ${PROJECT_NAME} down
@@ -24,9 +28,12 @@ stop: ## Stop the Docker stack.
 enter-frontend: ## Enter the frontend container.
 	@docker exec -it ${FRONTEND_CONTAINER} sh || true
 
+enter-backend: ## Enter the backend container.
+	@docker exec -it ${BACKEND_CONTAINER} /bin/bash || true
+
 ## Build
 rebuild: ## Forces a rebuild of the custom Docker images.
-	@docker compose -f ./docker/development.yml build --no-cache
+	@docker compose -f ./docker/docker-compose.development.yml build --no-cache
 
 ## Setup
 copy-env-file: ## Copy .env.dist to .env if it does not exist already.

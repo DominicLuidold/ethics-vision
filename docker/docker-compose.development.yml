@@ -1,0 +1,53 @@
+version: "3.8"
+
+services:
+    frontend:
+        image: ${PROJECT_NAME}-frontend:dev
+        build:
+            context: ./../frontend
+            dockerfile: ./../docker/frontend/Dockerfile
+            cache_from:
+                - ${PROJECT_NAME}-frontend:dev
+        ports:
+            - "4200:4200"
+        volumes:
+            - ./../frontend:/app
+
+    backend:
+        image: ${PROJECT_NAME}-backend:dev
+        build:
+            context: ./../
+            dockerfile: ./docker/backend/Dockerfile
+            target: development
+            args:
+                USER_UID: ${USER_UID}
+            cache_from:
+                - ${PROJECT_NAME}-backend:dev
+        ports:
+            - "8080:8000"
+            - "8989:8989"
+        volumes:
+            - ./../backend:/var/www/app
+        extra_hosts:
+            - host.docker.internal:host-gateway
+
+    postgres:
+        image: postgres:15.3-alpine
+        ports:
+            - "8585:5432"
+        volumes:
+            - data-postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: postgres
+
+    maildev:
+        image: maildev/maildev:latest
+        command: bin/maildev --smtp 25 --hide-extensions STARTTLS -v
+        ports:
+            - "8383:1080"
+
+    redis:
+        image: redis:6.2-alpine
+
+volumes:
+    data-postgres:
