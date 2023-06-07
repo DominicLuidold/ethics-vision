@@ -6,9 +6,6 @@ WORKDIR /app
 
 RUN yarn global add @angular/cli
 
-COPY package.json yarn.lock ./
-RUN yarn install
+COPY ./docker/frontend/files/bin/entrypoint.development.sh /bin/entrypoint.sh
 
-COPY . .
-
-ENTRYPOINT ng serve --host 0.0.0.0
+ENTRYPOINT sh /bin/entrypoint.sh

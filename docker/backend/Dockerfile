@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 
+ARG PHP_VERSION
+
 # Base image
-FROM php:8.2-fpm-bullseye AS base
+FROM php:${PHP_VERSION}-fpm-bullseye AS base
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
@@ -37,7 +39,7 @@ RUN apt update && \
     docker-php-source delete && \
     rm -fR /tmp/* && rm -fR /var/lib/apt/lists/* && \
     # Set same user id as local user
-    usermod --uid $USER_UID www-data && \
+    usermod --uid ${USER_UID} www-data && \
     # Set root password to enable `su`
     echo "root:root" | chpasswd
 
