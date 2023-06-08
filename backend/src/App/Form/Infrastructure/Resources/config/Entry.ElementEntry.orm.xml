@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Form\Domain\Model\Entry\ElementEntry">
+        <id name="id" type="element_entry_id" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one field="entry" target-entity="App\Form\Domain\Model\Entry\Entry">
+            <join-column on-delete="CASCADE" nullable="false"/>
+        </many-to-one>
+
+        <many-to-one field="element" target-entity="App\Form\Domain\Model\Form\Element">
+            <join-column on-delete="CASCADE" nullable="false"/>
+        </many-to-one>
+
+        <field name="value" type="string" nullable="false"/>
+    </entity>
+</doctrine-mapping>

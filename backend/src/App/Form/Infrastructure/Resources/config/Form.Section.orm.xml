@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Form\Domain\Model\Form\Section">
+        <id name="id" type="section_id" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one field="form" target-entity="App\Form\Domain\Model\Form\Form">
+            <join-column on-delete="CASCADE" nullable="false"/>
+        </many-to-one>
+
+        <one-to-many field="elements" target-entity="App\Form\Domain\Model\Form\Element" mapped-by="section"
+                     orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <field name="title" type="string" nullable="false"/>
+        <field name="description" type="string" nullable="false"/>
+        <field name="position" type="integer" nullable="false"/>
+    </entity>
+</doctrine-mapping>

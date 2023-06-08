@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Form\Domain\Model\Entry\Entry"
+            repository-class="App\Form\Infrastructure\Repository\EntryDoctrineRepository">
+        <id name="id" type="entry_id" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <many-to-one field="form" target-entity="App\Form\Domain\Model\Form\Form">
+            <join-column on-delete="CASCADE" nullable="false"/>
+        </many-to-one>
+
+        <one-to-many field="elementEntries" target-entity="App\Form\Domain\Model\Entry\ElementEntry" mapped-by="entry">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
+
+        <field name="status" type="string" enum-type="App\Form\Domain\Model\Entry\EntryStatus" nullable="false"/>
+    </entity>
+</doctrine-mapping>
