@@ -1,0 +1,79 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: #97cff1;
+}
+
+.content {
+    flex-grow: 1;
+    overflow: auto;
+
+    width: 66%;
+    margin: 30px auto;
+}
+
+.footer {
+    background-color: #ffdc5f;
+    line-height: unset;
+    white-space: unset;
+
+    margin-top: 130px;
+}
+
+.footer-content {
+    width: 66%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.footer-content a {
+    color: black;
+}
+
+.footer-content .smaller-text {
+    font-size: 12px;
+}
+
+.footer-logo {
+    width: 34%;
+    transform: translateY(-75px);
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fhv-logo {
+    width: 173px;
+}
+
+@media (max-width: 1200px) {
+    .content {
+        width: 85%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .footer-content {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 599px) {
+    .footer {
+        height: fit-content;
+        margin: 0;
+    }
+
+    .footer-logo {
+        margin-left: 15px;
+        transform: none;
+    }
+}
