@@ -1,3 +1,8 @@
+$sidenav-min-width-mobile-portrait: 60%;
+$sidenav-min-width-mobile-landscape: 50%;
+$sidenav-min-width-tablet: 30%;
+$sidenav-min-width-desktop: 15%;
+
 :host {
     display: flex;
     flex-direction: column;
@@ -16,12 +21,55 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20%;
+
+    min-width: $sidenav-min-width-desktop;
+
+    // Specific height for mobile devices in portrait mode.
+    @media (max-width: 599px) and (orientation: portrait) {
+        min-width: $sidenav-min-width-mobile-portrait;
+    }
+
+    // Specific height for mobile devices in landscape mode.
+    @media (max-width: 959px) and (orientation: landscape) {
+        min-width: $sidenav-min-width-mobile-landscape;
+    }
+}
+
+.sidenav * {
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .content {
     width: 66%;
     margin: 30px auto;
+
+    @media (max-width: 1200px) {
+        width: 85%;
+        margin-bottom: 130px;
+    }
+}
+
+.sidenav a {
+    border-radius: 4px;
+    width: unset;
+    margin: 8px;
+}
+
+.sidenav span {
+    font-family: "AeonikPro Regular", Roboto, "Helvetica Neue", sans-serif;
+}
+
+.sidenav .active {
+    background-color: #c0a9d2;
+}
+
+.active mat-icon {
+    color: black;
+}
+
+.active span {
+    font-family: "AeonikPro Bold", Roboto, "Helvetica Neue", sans-serif;
 }
 
 .footer {
@@ -38,6 +86,10 @@
     justify-content: space-between;
     align-items: center;
     text-align: center;
+
+    @media (max-width: 1000px) {
+        flex-direction: column;
+    }
 }
 
 .footer-content a {
@@ -61,26 +113,9 @@
     width: 173px;
 }
 
-@media (max-width: 1200px) {
-    .content {
-        width: 85%;
-        margin-bottom: 130px;
-    }
-}
-
-@media (max-width: 1000px) {
-    .footer-content {
-        flex-direction: column;
-    }
-}
-
 @media (max-width: 599px) {
     .content {
         margin-bottom: 30px;
-    }
-
-    .sidenav {
-        width: 66%;
     }
 
     .footer {
