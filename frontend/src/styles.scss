@@ -1,4 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* The custom AeonikPro fonts are only included in the local dev build due to licensing reasons */
+@font-face {
+    font-family: 'AeonikPro Regular';
+    src: url('/assets/fonts/aeonikpro-regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AeonikPro Bold';
+    src: url('/assets/fonts/aeonikpro-bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "AeonikPro Regular", Roboto, "Helvetica Neue", sans-serif;
+}
+
+.fhv-font-regular {
+    font-family: "AeonikPro Regular", Roboto, "Helvetica Neue", sans-serif;
+}
+
+.fhv-font-bold {
+    font-family: "AeonikPro Bold", Roboto, "Helvetica Neue", sans-serif;
+}
