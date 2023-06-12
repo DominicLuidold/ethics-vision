@@ -3,15 +3,37 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 import { Entry } from '../models/entry';
+import { Form } from '../models/form';
 import { PaginatedResponse } from '../models/paginated-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormService {
-  constructor(private readonly httpClient: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
+
+  getForm(formId: number): Observable<Form> {
+    return this.http.get<Form>(`${environment.apiUrl}/forms/${formId}`);
+  }
+
+  getFormEntry(formId: number, entryId: number): Observable<Entry> {
+    return this.http.get<Entry>(`${environment.apiUrl}/forms/${formId}/entries/${entryId}`);
+  }
+
+  createFormEntry(formId: number): Observable<Entry> {
+    return this.http.post<Entry>(`${environment.apiUrl}/forms/${formId}/entries/create`, {});
+  }
+
+  updateFormEntry(formId: number, entryId: number, entry: Entry): Observable<Entry> {
+    entry.id = undefined;
+    return this.http.post<Entry>(`${environment.apiUrl}/forms/${formId}/entries/${entryId}/update`, entry);
+  }
+
+  submitFormEntry(formId: number, entryId: number): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/forms/${formId}/entries/${entryId}/submit`, {});
+  }
 
   getAllEntriesForFormWithStatus(formId: number, status: 'WORK_IN_PROGRESS' | 'SUBMITTED'): Observable<PaginatedResponse<Entry>> {
-    return this.httpClient.get<PaginatedResponse<Entry>>(`${environment.apiUrl}/forms/${formId}/entries?status=${status}`);
+    return this.http.get<PaginatedResponse<Entry>>(`${environment.apiUrl}/forms/${formId}/entries?status=${status}`);
   }
 }

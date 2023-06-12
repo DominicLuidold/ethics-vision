@@ -19,6 +19,10 @@
                 <mat-icon matListItemIcon>home</mat-icon>
                 <span matListItemTitle>Übersicht</span>
             </a>
+            <a mat-list-item (click)="sidenav.close()" routerLink="/forms/1/new" routerLinkActive="active">
+                <mat-icon matListItemIcon>add</mat-icon>
+                <span matListItemTitle>Neuen Antrag stellen</span>
+            </a>
             <a mat-list-item (click)="sidenav.close()" href="https://www.fhv.at/forschung/forschungsethik-kommission"
                 target="_blank" rel="nofollow noreferrer">
                 <mat-icon matListItemIcon>open_in_new</mat-icon>

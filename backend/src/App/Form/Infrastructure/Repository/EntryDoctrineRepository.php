@@ -26,13 +26,15 @@ final class EntryDoctrineRepository extends ServiceEntityRepository implements E
         $this->em = $this->getEntityManager();
     }
 
-    public function findOneById(EntryId $id): ?Entry
+    public function findOneByFormAndId(FormId $formId, EntryId $entryId): ?Entry
     {
         $qb = $this->createQueryBuilder('entry')
             ->addSelect('elementEntries')
             ->leftJoin('entry.elementEntries', 'elementEntries')
-            ->andWhere('entry.id = :id')
-            ->setParameter('id', $id);
+            ->andWhere('entry.form = :formId')
+            ->andWhere('entry.id = :entryId')
+            ->setParameter('formId', $formId)
+            ->setParameter('entryId', $entryId);
 
         return $qb->getQuery()->getOneOrNullResult();
     }

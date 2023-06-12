@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Application\Message\CommandHandler;
 
+use App\Form\Application\Dto\Response\EntryDto;
 use App\Form\Application\Message\Command\UpdateEntryCommand;
 use App\Form\Domain\Repository\EntryRepositoryInterface;
 use App\Form\Domain\Repository\FormRepositoryInterface;
@@ -18,14 +19,14 @@ final readonly class UpdateEntryCommandHandler implements CommandHandlerInterfac
     ) {
     }
 
-    public function __invoke(UpdateEntryCommand $command): void
+    public function __invoke(UpdateEntryCommand $command): EntryDto
     {
         $form = $this->formRepository->findOneById($command->id);
         if (null === $form) {
             throw new NotFoundHttpException();
         }
 
-        $entry = $this->entryRepository->findOneById($command->entryId);
+        $entry = $this->entryRepository->findOneByFormAndId($form->getId(), $command->entryId);
         if (null === $entry) {
             throw new NotFoundHttpException();
         }
@@ -37,16 +38,20 @@ final readonly class UpdateEntryCommandHandler implements CommandHandlerInterfac
                 if (null === $updatedElementEntry->value) {
                     $entry->removeElementEntry($existingElementEntry->getElement()->getId());
                 } else {
-                    $existingElementEntry->updateValue($updatedElementEntry->value);
+                    $entry->updateElementEntryValue($updatedElementEntry->elementId, $updatedElementEntry->value);
                 }
             } else {
                 if (null === $updatedElementEntry->value) {
-                    return;
+                    continue;
                 }
 
                 $element = $form->getElement($updatedElementEntry->elementId);
                 $entry->addElementEntry($element, $updatedElementEntry->value);
             }
         }
+
+        $this->entryRepository->saveEntity($entry);
+
+        return EntryDto::fromEntry($entry);
     }
 }

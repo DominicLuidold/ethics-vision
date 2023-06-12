@@ -1,0 +1,33 @@
+mat-card {
+    margin-top: 10px;
+}
+
+mat-card-header {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-bottom: 20px;
+}
+
+.form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.hint-margin {
+    margin-bottom: 15px;
+}
+
+.stepper-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.stepper-button {
+    background-color: #97cff1;
+}
+
+.submit-button {
+    background-color: #ffdc5f;
+}

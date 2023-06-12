@@ -56,10 +56,6 @@ $sidenav-min-width-desktop: 15%;
     margin: 8px;
 }
 
-.sidenav span {
-    font-family: "AeonikPro Regular", Roboto, "Helvetica Neue", sans-serif;
-}
-
 .sidenav .active {
     background-color: #c0a9d2;
 }
@@ -69,7 +65,7 @@ $sidenav-min-width-desktop: 15%;
 }
 
 .active span {
-    font-family: "AeonikPro Bold", Roboto, "Helvetica Neue", sans-serif;
+    font-weight: 500;
 }
 
 .footer {

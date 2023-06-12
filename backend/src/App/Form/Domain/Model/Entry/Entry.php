@@ -7,6 +7,7 @@ namespace App\Form\Domain\Model\Entry;
 use App\Common\Domain\Id\ElementEntryId;
 use App\Common\Domain\Id\ElementId;
 use App\Common\Domain\Id\EntryId;
+use App\Form\Domain\Event\EntrySubmittedEvent;
 use App\Form\Domain\Exception\ElementEntryNotFoundException;
 use App\Form\Domain\Exception\ElementNotRelatedToFormException;
 use App\Form\Domain\Model\Form\Element;
@@ -36,9 +37,18 @@ class Entry extends AggregateRoot
             id: new EntryId(null),
             form: $form,
             status: $status,
-            createdAt: new \DateTime(),
-            updatedAt: new \DateTime()
+            createdAt: new \DateTimeImmutable(),
+            updatedAt: new \DateTimeImmutable()
         );
+    }
+
+    public function submit(): void
+    {
+        $this->status = EntryStatus::SUBMITTED;
+        $this->updatedAt = new \DateTimeImmutable();
+
+        // TODO - Emit event and send email
+        // $this->raise(new EntrySubmittedEvent($this->id));
     }
 
     public function getId(): EntryId
@@ -92,12 +102,13 @@ class Entry extends AggregateRoot
         }
 
         $this->elementEntries->add(ElementEntry::create($this, $element, $value));
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function updateElementEntryValue(ElementId $elementId, string $value): void
     {
         foreach ($this->elementEntries as $elementEntry) {
-            if ($elementEntry->getElement()->getId() === $elementId) {
+            if ($elementEntry->getElement()->getId()->equals($elementId)) {
                 $elementEntry->updateValue($value);
                 $this->updatedAt = new \DateTimeImmutable();
 
@@ -113,6 +124,7 @@ class Entry extends AggregateRoot
         foreach ($this->elementEntries as $elementEntry) {
             if ($elementEntry->getElement()->getId() === $elementId) {
                 $this->elementEntries->removeElement($elementEntry);
+                $this->updatedAt = new \DateTimeImmutable();
             }
         }
     }

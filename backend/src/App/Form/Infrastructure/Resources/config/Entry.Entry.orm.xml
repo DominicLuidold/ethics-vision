@@ -13,7 +13,8 @@
             <join-column on-delete="CASCADE" nullable="false"/>
         </many-to-one>
 
-        <one-to-many field="elementEntries" target-entity="App\Form\Domain\Model\Entry\ElementEntry" mapped-by="entry">
+        <one-to-many field="elementEntries" target-entity="App\Form\Domain\Model\Entry\ElementEntry" mapped-by="entry"
+                     orphan-removal="true">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

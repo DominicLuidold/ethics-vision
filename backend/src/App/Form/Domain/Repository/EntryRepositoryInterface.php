@@ -11,7 +11,7 @@ use App\Form\Domain\Model\Entry\EntryStatus;
 
 interface EntryRepositoryInterface
 {
-    public function findOneById(EntryId $id): ?Entry;
+    public function findOneByFormAndId(FormId $formId, EntryId $entryId): ?Entry;
 
     /**
      * @return Entry[]

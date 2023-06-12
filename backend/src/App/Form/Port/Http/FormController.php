@@ -8,6 +8,7 @@ use App\Form\Application\Dto\Response\EntryDto;
 use App\Form\Application\Dto\Response\FormDto;
 use App\Form\Application\Dto\Response\MinimalEntryDto;
 use App\Form\Application\Message\Command\CreateEntryCommand;
+use App\Form\Application\Message\Command\SubmitFormEntryCommand;
 use App\Form\Application\Message\Command\UpdateEntryCommand;
 use App\Form\Application\Message\Query\GetAllFormEntriesQuery;
 use App\Form\Application\Message\Query\GetFormEntriesQuery;
@@ -86,6 +87,7 @@ final class FormController extends AbstractController
         path: '/{id}/entries/create',
         requirements: ['id' => '\d+'],
         methods: ['POST'],
+        input: \stdClass::class,
         output: MinimalEntryDto::class,
         statusCode: Response::HTTP_CREATED,
         description: 'Create an `Entry` for a `Form`'
@@ -101,10 +103,25 @@ final class FormController extends AbstractController
         path: '/{id}/entries/{entryId}/update',
         requirements: ['id' => '\d+', 'entryId' => '\d+'],
         methods: ['POST'],
-        statusCode: Response::HTTP_NO_CONTENT,
+        output: EntryDto::class,
         description: 'Update an `Entry` for a `Form`'
     )]
     public function updateEntryAction(#[FromRequest] UpdateEntryCommand $command): Response
+    {
+        $envelope = $this->commandBus->dispatch($command);
+
+        return $this->createJsonResponseFromEnvelope($envelope);
+    }
+
+    #[DocumentedRoute(
+        path: '/{id}/entries/{entryId}/submit',
+        requirements: ['id' => '\d+', 'entryId' => '\d+'],
+        methods: ['POST'],
+        input: \stdClass::class,
+        statusCode: Response::HTTP_NO_CONTENT,
+        description: 'Submit an `Entry` for a `Form`'
+    )]
+    public function submitEntryAction(#[FromRequest] SubmitFormEntryCommand $command): Response
     {
         $this->commandBus->dispatch($command);
 

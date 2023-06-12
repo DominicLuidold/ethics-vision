@@ -4,6 +4,11 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity name="App\Form\Domain\Model\Form\Element">
+        <unique-constraints>
+            <unique-constraint columns="section_id,title"/>
+            <unique-constraint columns="section_id,position"/>
+        </unique-constraints>
+
         <id name="id" type="element_id" column="id">
             <generator strategy="AUTO"/>
         </id>
