@@ -21,7 +21,7 @@
         </one-to-many>
 
         <field name="title" type="string" nullable="false"/>
-        <field name="description" type="string" nullable="false"/>
+        <field name="description" type="text" nullable="false"/>
         <field name="position" type="integer" nullable="false"/>
     </entity>
 </doctrine-mapping>

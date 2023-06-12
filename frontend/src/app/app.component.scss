@@ -11,6 +11,10 @@ $sidenav-min-width-desktop: 15%;
 
 .header {
     background-color: #97cff1;
+
+    .header-home-link {
+        cursor: pointer;
+    }
 }
 
 .container {

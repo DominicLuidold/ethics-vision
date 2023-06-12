@@ -61,10 +61,6 @@ export class FormComponent implements OnInit {
       };
     });
 
-    this.steps = this.steps.filter((step) => {
-      return step.formGroup && step.formGroup.controls && Object.keys(step.formGroup.controls).length > 0;
-    });
-
     this.steps.sort((a: Step, b: Step) => a.position - b.position);
 
     this.steps.forEach((step, index) => {
