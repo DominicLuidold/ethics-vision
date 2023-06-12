@@ -21,5 +21,7 @@
         </one-to-many>
 
         <field name="status" type="string" enum-type="App\Form\Domain\Model\Entry\EntryStatus" nullable="false"/>
+        <field name="createdAt" type="datetime" nullable="false"/>
+        <field name="updatedAt" type="datetime" nullable="false"/>
     </entity>
 </doctrine-mapping>

@@ -12,7 +12,9 @@ final class MinimalEntryDto
 {
     private function __construct(
         public EntryId $id,
-        public EntryStatus $status
+        public EntryStatus $status,
+        public \DateTimeInterface $createdAt,
+        public \DateTimeInterface $updatedAt,
     ) {
     }
 
@@ -20,7 +22,9 @@ final class MinimalEntryDto
     {
         return new self(
             id: $entry->getId(),
-            status: $entry->getStatus()
+            status: $entry->getStatus(),
+            createdAt: $entry->getCreatedAt(),
+            updatedAt: $entry->getUpdatedAt()
         );
     }
 }

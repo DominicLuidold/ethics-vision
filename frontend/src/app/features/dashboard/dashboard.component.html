@@ -1,0 +1,26 @@
+<h1>Übersicht</h1>
+
+<mat-card role="region">
+    <mat-card-header>
+        <mat-card-title>Offene Anträge</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <ev-entry-table [mode]="'WORK_IN_PROGRESS'" [data]="wipData" />
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-raised-button class="new-entry">Neuen Antrag stellen</button>
+    </mat-card-actions>
+</mat-card>
+
+<br>
+
+<mat-card role="region">
+    <mat-card-header>
+        <mat-card-title>Abgeschlossene Anträge</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <ev-entry-table [mode]="'SUBMITTED'" [data]="submittedData" />
+    </mat-card-content>
+</mat-card>
+
+<br>

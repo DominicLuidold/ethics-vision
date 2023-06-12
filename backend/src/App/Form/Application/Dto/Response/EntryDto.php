@@ -18,6 +18,8 @@ final readonly class EntryDto
         public EntryId $id,
         public EntryStatus $status,
         public array $elementEntries,
+        public \DateTimeInterface $createdAt,
+        public \DateTimeInterface $updatedAt,
     ) {
     }
 
@@ -29,7 +31,9 @@ final readonly class EntryDto
             elementEntries: array_map(
                 callback: static fn (ElementEntry $entry) => ElementEntryDto::fromElementEntry($entry),
                 array: $entry->getElementEntries()
-            )
+            ),
+            createdAt: $entry->getCreatedAt(),
+            updatedAt: $entry->getUpdatedAt()
         );
     }
 }

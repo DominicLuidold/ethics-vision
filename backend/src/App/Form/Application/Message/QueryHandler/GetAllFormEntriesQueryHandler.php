@@ -6,7 +6,6 @@ namespace App\Form\Application\Message\QueryHandler;
 
 use App\Form\Application\Message\Query\GetAllFormEntriesQuery;
 use App\Form\Application\Message\Response\GetAllFormEntriesResponse;
-use App\Form\Domain\Model\Entry\EntryStatus;
 use App\Form\Domain\Repository\EntryRepositoryInterface;
 use App\Form\Domain\Repository\FormRepositoryInterface;
 use Framework\Application\Messenger\QueryHandlerInterface;
@@ -27,8 +26,8 @@ final readonly class GetAllFormEntriesQueryHandler implements QueryHandlerInterf
             throw new NotFoundHttpException();
         }
 
-        $entries = $this->entryRepository->findAllByFormAndStatus($form->getId(), EntryStatus::WORK_IN_PROGRESS);
+        $entries = $this->entryRepository->findAllByFormAndStatus($form->getId(), $query->status);
 
-        return new GetAllFormEntriesResponse($entries, \count($entries), 1, 10);
+        return new GetAllFormEntriesResponse($entries, \count($entries), 1, 5);
     }
 }

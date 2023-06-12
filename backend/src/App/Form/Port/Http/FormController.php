@@ -57,7 +57,6 @@ final class FormController extends AbstractController
         path: '/{id}/entries',
         requirements: ['id' => '\d+'],
         methods: ['GET'],
-        input: \stdClass::class,
         output: GetAllFormEntriesResponse::class,
         description: 'Get all `Entry`s for a `Form`'
     )]

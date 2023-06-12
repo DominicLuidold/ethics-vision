@@ -24,6 +24,8 @@ class Entry extends AggregateRoot
         private EntryId $id,
         private readonly Form $form,
         private EntryStatus $status,
+        private readonly \DateTimeInterface $createdAt,
+        private \DateTimeInterface $updatedAt,
     ) {
         $this->elementEntries = new ArrayCollection();
     }
@@ -33,7 +35,9 @@ class Entry extends AggregateRoot
         return new self(
             id: new EntryId(null),
             form: $form,
-            status: $status
+            status: $status,
+            createdAt: new \DateTime(),
+            updatedAt: new \DateTime()
         );
     }
 
@@ -50,6 +54,16 @@ class Entry extends AggregateRoot
     public function getStatus(): EntryStatus
     {
         return $this->status;
+    }
+
+    public function getCreatedAt(): \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 
     /**
@@ -85,6 +99,7 @@ class Entry extends AggregateRoot
         foreach ($this->elementEntries as $elementEntry) {
             if ($elementEntry->getElement()->getId() === $elementId) {
                 $elementEntry->updateValue($value);
+                $this->updatedAt = new \DateTimeImmutable();
 
                 return;
             }
