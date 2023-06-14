@@ -7,11 +7,11 @@ namespace App\Form\Domain\Model\Entry;
 use App\Common\Domain\Id\ElementEntryId;
 use App\Common\Domain\Id\ElementId;
 use App\Common\Domain\Id\EntryId;
-use App\Form\Domain\Event\EntrySubmittedEvent;
 use App\Form\Domain\Exception\ElementEntryNotFoundException;
 use App\Form\Domain\Exception\ElementNotRelatedToFormException;
 use App\Form\Domain\Model\Form\Element;
 use App\Form\Domain\Model\Form\Form;
+use App\Form\Domain\Model\MetaInformation\EntryMetaInformationValueObject;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Fusonic\DDDExtensions\Domain\Model\AggregateRoot;
@@ -27,18 +27,23 @@ class Entry extends AggregateRoot
         private EntryStatus $status,
         private readonly \DateTimeInterface $createdAt,
         private \DateTimeInterface $updatedAt,
+        private readonly EntryMetaInformationValueObject $metaInformation,
+        private ?\DateTimeInterface $submittedAt = null,
     ) {
         $this->elementEntries = new ArrayCollection();
     }
 
-    public static function create(Form $form, EntryStatus $status = EntryStatus::WORK_IN_PROGRESS): self
-    {
+    public static function create(
+        Form $form,
+        EntryMetaInformationValueObject $metaInformation,
+    ): self {
         return new self(
             id: new EntryId(null),
             form: $form,
-            status: $status,
+            status: EntryStatus::WORK_IN_PROGRESS,
             createdAt: new \DateTimeImmutable(),
-            updatedAt: new \DateTimeImmutable()
+            updatedAt: new \DateTimeImmutable(),
+            metaInformation: $metaInformation,
         );
     }
 
@@ -46,6 +51,7 @@ class Entry extends AggregateRoot
     {
         $this->status = EntryStatus::SUBMITTED;
         $this->updatedAt = new \DateTimeImmutable();
+        $this->submittedAt = new \DateTimeImmutable();
 
         // TODO - Emit event and send email
         // $this->raise(new EntrySubmittedEvent($this->id));
@@ -74,6 +80,16 @@ class Entry extends AggregateRoot
     public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    public function getSubmittedAt(): ?\DateTimeInterface
+    {
+        return $this->submittedAt;
+    }
+
+    public function getMetaInformation(): EntryMetaInformationValueObject
+    {
+        return $this->metaInformation;
     }
 
     /**

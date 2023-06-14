@@ -8,6 +8,9 @@ use App\Common\Infrastructure\Type\EntryIdType;
 use App\Common\Infrastructure\Type\FormIdType;
 use App\Common\Infrastructure\Type\ScreenIdType;
 use App\Common\Infrastructure\Type\SectionIdType;
+use App\Form\Infrastructure\Types\EntryMetaInformationValueObjectType;
+use App\Form\Infrastructure\Types\MetaCategoryValueObjectType;
+use App\Form\Infrastructure\Types\SectionMetaInformationValueObjectType;
 use Symfony\Config\DoctrineConfig;
 
 return static function (DoctrineConfig $doctrine): void {
@@ -26,6 +29,9 @@ return static function (DoctrineConfig $doctrine): void {
             FormIdType::NAME => ['class' => FormIdType::class],
             ScreenIdType::NAME => ['class' => ScreenIdType::class],
             SectionIdType::NAME => ['class' => SectionIdType::class],
+            SectionMetaInformationValueObjectType::NAME => ['class' => SectionMetaInformationValueObjectType::class],
+            EntryMetaInformationValueObjectType::NAME => ['class' => EntryMetaInformationValueObjectType::class],
+            MetaCategoryValueObjectType::NAME => ['class' => MetaCategoryValueObjectType::class],
         ],
     ]);
 

@@ -24,5 +24,7 @@
         <field name="status" type="string" enum-type="App\Form\Domain\Model\Entry\EntryStatus" nullable="false"/>
         <field name="createdAt" type="datetime" nullable="false"/>
         <field name="updatedAt" type="datetime" nullable="false"/>
+        <field name="submittedAt" type="datetime" nullable="true"/>
+        <field name="metaInformation" type="entry_meta_information_vo" nullable="false"/>
     </entity>
 </doctrine-mapping>

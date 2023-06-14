@@ -56,13 +56,20 @@ class Form extends AggregateRoot
         return $form;
     }
 
-    public function addSection(string $title, string $description, int $position): Section
-    {
+    public function addSection(
+        string $title,
+        ?string $description,
+        int $position,
+        string $metaCategoryName,
+        string $metaCategoryValue = null
+    ): Section {
         $section = Section::create(
             form: $this,
             title: $title,
             description: $description,
-            position: $position
+            position: $position,
+            metaCategoryName: $metaCategoryName,
+            metaCategoryValue: $metaCategoryValue,
         );
         $this->sections->add($section);
 

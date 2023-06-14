@@ -1,0 +1,101 @@
+<h2 mat-dialog-title *ngIf="!assistMode">{{ title }}</h2>
+<h2 mat-dialog-title *ngIf="assistMode && !rethinkMode">Formular-Assistent</h2>
+<h2 mat-dialog-title *ngIf="assistMode && rethinkMode">Formular-Assistent &ndash; Hinweis zur Antragstellung</h2>
+<mat-dialog-content>
+    <p [innerHTML]="content" *ngIf="!assistMode"></p>
+
+    <ng-container *ngIf="assistMode && !rethinkMode">
+        <form [formGroup]="assistForm" (submit)="submit()">
+            <mat-stepper linear="true" #stepper>
+                <mat-step [stepControl]="assistForm.get('funding')!" label="Finanzierung">
+                    <p><strong>In welchem Rahmen wird das Forschungsvorhaben bzw. -projekt umgesetzt und
+                            finanziert?</strong></p>
+
+                    <mat-form-field class="full-width">
+                        <mat-select formControlName="funding" placeholder="Bitte auswählen..">
+                            <mat-option value="cooperation">Forschungskooperation</mat-option>
+                            <mat-option value="third-party">Drittmittelfinanzierung</mat-option>
+                            <mat-option value="equity">Eigenmittelfinanzierung</mat-option>
+                            <mat-option value="student">F&E Arbeit von Studierenden</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="stepper-button-container">
+                        <button mat-button type="button" (click)="toggleAssistMode()" class="action-button">Zurück zur
+                            Info
+                        </button>
+                        <button mat-button matStepperNext type="button" class="stepper-button">Weiter</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="assistForm.get('humans')!" label="Studiendesign">
+                    <p><strong>Wird eine Studie an oder mit Menschen durchgeführt?</strong></p>
+
+                    <mat-radio-group formControlName="humans">
+                        <mat-radio-button [value]="true">Ja</mat-radio-button>
+                        <mat-radio-button [value]="false">Nein</mat-radio-button>
+                    </mat-radio-group>
+
+                    <div class="stepper-button-container" style="margin-top: 20px;">
+                        <button mat-button matStepperPrevious type="button" class="stepper-button">Zurück</button>
+                        <button mat-button matStepperNext type="button" class="stepper-button">Weiter</button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="assistForm.get('prototype')!" label="Prototyp">
+                    <p><strong>Wird ein Prototyp entwickelt?</strong></p>
+
+                    <mat-radio-group formControlName="prototype">
+                        <mat-radio-button [value]="true">Ja</mat-radio-button>
+                        <mat-radio-button [value]="false">Nein</mat-radio-button>
+                    </mat-radio-group>
+
+                    <div class="stepper-button-container" style="margin-top: 20px;">
+                        <button mat-button matStepperPrevious type="button" class="stepper-button">Zurück</button>
+                        <button mat-button type="submit" class="action-button">Weiter zum Antrag</button>
+                    </div>
+                </mat-step>
+            </mat-stepper>
+        </form>
+    </ng-container>
+
+    <ng-container *ngIf="assistMode && rethinkMode">
+        <p>
+            Sehr geehrte:r Forscher:in,<br>
+            sehr geehrte:r Student:in,
+        </p>
+        <p>
+            Sie haben soeben angegeben, dass sowohl <em>keine</em> Studie an oder mit Menschen durchgeführt wird, als
+            auch, dass
+            <em>kein</em> Prototyp entwickelt werden soll.
+        </p>
+        <p>
+            <strong>Womöglich keine ethische Stellungnahme möglich</strong>
+        </p>
+        <p>
+            Diese Angaben weisen darauf hin, dass womöglich keine ethische Stellungnahme durch die
+            Forschungsethik-Kommission möglich ist. Sofern diese Angaben fehlerhaft sind, können Sie diese noch einmal
+            korrigieren oder aber mit der Antragstellung fortfahren.
+        </p>
+        <p>
+            Sollte Unsicherheit darüber bestehen, ob eine ethische Beurteilung durch die FE-K möglich ist, können Sie
+            die folgenden Dokumente und Unterlagen nutzen:
+        </p>
+        <ul>
+            <li><a href="https://www.fhv.at/fh/die-fhv/hochschulorganisation/Satzung%20und%20Gesch%C3%A4ftsordnung/fhv-hochschulorganisation-satzungundgeschaeftsordnung-wahlordnung-wertekatalog-des-kollegiums-stand-19.04.2022.pdf"
+                    target="_blank">Wertekatalog der FH Vorarlberg</a></li>
+            <li><a href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-kriterienkatalog-beurteilung-forschungsvorhaben-23.pdf"
+                    target="_blank">Kriterienkatalog</a></li>
+            <li><a href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-verfahrensordnung-fhv-23.pdf"
+                    target="_blank">Verfahrensordnung der FE-K</a></li>
+            <li><a href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-satzung-forschungsethik-kommission-fhv-23.pdf"
+                    target="_blank">Satzung der FE-K</a></li>
+        </ul>
+        <p>Bei Fragen k&ouml;nnen Sie sich zudem jederzeit an den Vorsitz der Forschungsethik-Kommission wenden.</p>
+    </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions align="end" *ngIf="!assistMode && !rethinkMode">
+    <button mat-button class="action-button" (click)="toggleAssistMode()">Weiter zum Formular-Assistent</button>
+</mat-dialog-actions>
+<mat-dialog-actions align="end" *ngIf="assistMode && rethinkMode">
+    <button mat-button class="stepper-button" (click)="submit()">Weiter zum Antrag</button>
+    <button mat-button class="action-button" (click)="rethinkMode = false">Zurück zur Auswahl</button>
+</mat-dialog-actions>

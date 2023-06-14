@@ -1,5 +1,5 @@
-import { Screen } from "./screen";
-import { Section } from "./section";
+import {Screen} from "./screen";
+import {Section} from "./section";
 
 export interface Form {
     id: number;

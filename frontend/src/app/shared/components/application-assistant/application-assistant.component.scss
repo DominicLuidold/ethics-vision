@@ -1,0 +1,22 @@
+:host {
+    display: block;
+    width: 50vw;
+}
+
+.action-button {
+    background-color: #ffdc5f;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.stepper-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.stepper-button {
+    background-color: #97cff1;
+}

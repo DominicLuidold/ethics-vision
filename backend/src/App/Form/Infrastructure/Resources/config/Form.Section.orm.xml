@@ -21,7 +21,8 @@
         </one-to-many>
 
         <field name="title" type="string" nullable="false"/>
-        <field name="description" type="text" nullable="false"/>
+        <field name="description" type="text" nullable="true"/>
         <field name="position" type="integer" nullable="false"/>
+        <field name="metaInformation" type="section_meta_information_vo" nullable="false"/>
     </entity>
 </doctrine-mapping>

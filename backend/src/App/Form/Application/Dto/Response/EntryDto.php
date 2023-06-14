@@ -8,6 +8,7 @@ use App\Common\Domain\Id\EntryId;
 use App\Form\Domain\Model\Entry\ElementEntry;
 use App\Form\Domain\Model\Entry\Entry;
 use App\Form\Domain\Model\Entry\EntryStatus;
+use App\Form\Domain\Model\MetaInformation\EntryMetaInformationValueObject;
 
 final readonly class EntryDto
 {
@@ -20,6 +21,8 @@ final readonly class EntryDto
         public array $elementEntries,
         public \DateTimeInterface $createdAt,
         public \DateTimeInterface $updatedAt,
+        public ?\DateTimeInterface $submittedAt,
+        public EntryMetaInformationValueObject $metaInformation,
     ) {
     }
 
@@ -33,7 +36,9 @@ final readonly class EntryDto
                 array: $entry->getElementEntries()
             ),
             createdAt: $entry->getCreatedAt(),
-            updatedAt: $entry->getUpdatedAt()
+            updatedAt: $entry->getUpdatedAt(),
+            submittedAt: $entry->getSubmittedAt(),
+            metaInformation: $entry->getMetaInformation()
         );
     }
 }

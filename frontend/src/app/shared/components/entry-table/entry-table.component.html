@@ -5,6 +5,12 @@
         <td mat-cell *matCellDef="let entry">{{ entry.id }}</td>
     </ng-container>
 
+    <!-- Status -->
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let entry">Eingereicht</td>
+    </ng-container>
+
     <!-- CreatedAt -->
     <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Erstellt am</th>
@@ -17,11 +23,19 @@
         <td mat-cell *matCellDef="let entry">{{ (entry.updatedAt | date:'short') || '/' }}</td>
     </ng-container>
 
+    <!-- SubmittedAt -->
+    <ng-container matColumnDef="submittedAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Eingereicht am</th>
+        <td mat-cell *matCellDef="let entry">{{ (entry.submittedAt | date:'short') || '/' }}</td>
+    </ng-container>
+
     <!-- View -->
     <ng-container matColumnDef="viewButton">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><i>Ansehen</i></th>
         <td mat-cell *matCellDef="let entry">
-            <a mat-icon-button [routerLink]="['/forms/1/view', entry.id]"><mat-icon>visibility</mat-icon></a>
+            <a mat-icon-button [routerLink]="['/forms/1/view', entry.id]">
+                <mat-icon>visibility</mat-icon>
+            </a>
         </td>
     </ng-container>
 
@@ -29,7 +43,9 @@
     <ng-container matColumnDef="editButton">
         <th mat-header-cell *matHeaderCellDef mat-sort-header><i>Editieren</i></th>
         <td mat-cell *matCellDef="let entry">
-            <a mat-icon-button [routerLink]="['/forms/1/edit', entry.id]"><mat-icon>edit</mat-icon></a>
+            <a mat-icon-button [routerLink]="['/forms/1/edit', entry.id]">
+                <mat-icon>edit</mat-icon>
+            </a>
         </td>
     </ng-container>
 
@@ -46,4 +62,4 @@
         [hidden]="dataSource.data.length > 0" class="no-data-found"></tr>
 </table>
 
-<mat-paginator [length]="data?.total" [pageSize]="data?.limit ?? 5" />
+<mat-paginator [length]="data?.total" [pageSize]="data?.limit ?? 5"/>

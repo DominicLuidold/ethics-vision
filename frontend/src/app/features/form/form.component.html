@@ -1,4 +1,6 @@
-<a mat-button routerLink="/dashboard"><mat-icon>arrow_back_ios</mat-icon>zur Übersicht</a>
+<a mat-button routerLink="/dashboard">
+    <mat-icon>arrow_back_ios</mat-icon>
+    zur Übersicht</a>
 
 <mat-card>
     <mat-card-header>
@@ -8,41 +10,45 @@
     <mat-card-content>
         <mat-vertical-stepper #stepper>
             <mat-step *ngFor="let step of steps; let i = index" [stepControl]="step.formGroup" [label]="step.title"
-                [matTooltip]="step.description">
+                [editable]="mode === 'EDIT'">
                 <span class="step-description">{{ step.description }}</span>
 
                 <form [formGroup]="step.formGroup" class="form">
                     <ng-container *ngFor="let control of step.formGroup.controls | keyvalue">
                         <mat-form-field
-                            [class.hint-margin]="'null' !== getElementDetailsByTitle('description', control.key)">
+                            [class.hint-margin]="'null' !== getElementDetailsById('description', control.key)">
                             <mat-label>
-                                {{ getElementDetailsByTitle('title', control.key) }}
+                                {{ getElementDetailsById('title', control.key) }}
                             </mat-label>
 
-                            <ng-container *ngIf="'TEXT_LONG' !== getElementDetailsByTitle('type', control.key)">
+                            <ng-container *ngIf="'TEXT_LONG' !== getElementDetailsById('type', control.key)">
                                 <input matInput [formControlName]="control.key" required
-                                    (blur)="onInputBlur(control.key, step.formGroup)" [readonly]="mode === 'READ_ONLY'">
+                                    (blur)="onInputBlur(control.key, step.formGroup)" [readonly]="mode === 'READ_ONLY'"
+                                    [placeholder]="getElementDetailsById('placeholder', control.key) !== 'null' ? getElementDetailsById('placeholder', control.key) : ''">
                             </ng-container>
 
-                            <ng-container *ngIf="'TEXT_LONG' === getElementDetailsByTitle('type', control.key)">
+                            <ng-container *ngIf="'TEXT_LONG' === getElementDetailsById('type', control.key)">
                                 <textarea matInput [formControlName]="control.key" required
                                     (blur)="onInputBlur(control.key, step.formGroup)"
-                                    [readonly]="mode === 'READ_ONLY'"></textarea>
+                                    readonly]="mode === 'READ_ONLY'"></textarea>
                             </ng-container>
 
-                            <mat-hint *ngIf="'null' !== getElementDetailsByTitle('description', control.key)">
-                                <em>{{ getElementDetailsByTitle('description', control.key) }}</em>
+                            <mat-hint *ngIf="'null' !== getElementDetailsById('description', control.key)">
+                                <em>{{ getElementDetailsById('description', control.key) }}</em>
                             </mat-hint>
                         </mat-form-field>
                     </ng-container>
 
                     <div class="stepper-button-container">
                         <button mat-button matStepperPrevious *ngIf="i !== 0" class="stepper-button">Vorheriger
-                            Abschnitt</button>
+                            Abschnitt
+                        </button>
                         <button mat-button matStepperNext *ngIf="i !== steps.length - 1" class="stepper-button">Nächster
-                            Abschnitt</button>
+                            Abschnitt
+                        </button>
                         <button mat-button *ngIf="i === steps.length - 1 && mode === 'EDIT'" class="submit-button"
-                            (click)="submit()">Antrag absenden</button>
+                            (click)="submit()">Antrag absenden
+                        </button>
                     </div>
                 </form>
             </mat-step>

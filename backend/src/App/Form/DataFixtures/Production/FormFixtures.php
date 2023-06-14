@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Infrastructure\DataFixtures\Production;
+namespace App\Form\DataFixtures\Production;
 
 use App\Form\Domain\Model\Form\ElementType;
 use App\Form\Domain\Model\Form\Form;
@@ -24,7 +24,7 @@ use Framework\Infrastructure\DataFixtures\ReferenceTrait;
  *     },
  *     sections: array<array{
  *         title: string,
- *         description: string,
+ *         description: ?string,
  *         position: int,
  *         elements: array<array{
  *             elementType: ElementType,
@@ -32,7 +32,13 @@ use Framework\Infrastructure\DataFixtures\ReferenceTrait;
  *             description: ?string,
  *             position: int,
  *             placeholder: ?string
- *         }>
+ *         }>,
+ *         metaInformation: array{
+ *             category: array{
+ *                 name: string,
+ *                 value: ?string
+ *             }
+ *         }
  *     }>
  * }
  */
@@ -52,17 +58,17 @@ final class FormFixtures extends ProductionFixture
                 'title' => 'Antrag auf Beurteilung eines Forschungs- oder Entwicklungsvorhabens und Stellungnahme durch die Forschungsethik-Kommission der Fachhochschule Vorarlberg',
                 'description' => 'Ethikantrag für die Einreichung bei der Forschungsethik-Kommission der Fachhochschule Vorarlberg',
                 'welcomeScreen' => [
-                    'title' => '',
-                    'content' => '',
+                    'title' => 'Informationen zur Einreichung eines Ethikantrags für die Forschungsethik-Kommission der Fachhochschule Vorarlberg',
+                    'content' => '<p>Sehr geehrte:r Forscher:in,<br>sehr geehrte:r Student:in,<p>vielen Dank für das Interesse an der Einreichung eines Ethikantrags, welcher von der Forschungsethik-Kommission (FE-K) der Fachhochschule Vorarlberg beurteilt wird!<br><br>Im Zuge der Antragstellung werden verschiedene Themenschwerpunkte abgefragt, die - abhängig von Ihrem Forschungsprojekt - mehr oder weniger Relevanz für den Antrag aufweisen. Mit einem Klick auf <code>Weiter zum Formular-Assistent</code> werden Ihnen einige Fragen gestellt, mit denen das Formular auf Ihr Forschungsvorhaben zugeschnitten wird.<p><strong>Weiterführende Hilfestellungen & Informationen zur Ethik in der Forschung</strong><p>Sollte noch Unsicherheit darüber bestehen, ob das Einreichen eines Antrags notwendig ist, stehen die folgenden Dokumente mit weiterführenden Hilfestellungen zur Einsicht bereit:<ul><li><a href="https://www.fhv.at/fh/die-fhv/hochschulorganisation/Satzung%20und%20Gesch%C3%A4ftsordnung/fhv-hochschulorganisation-satzungundgeschaeftsordnung-wahlordnung-wertekatalog-des-kollegiums-stand-19.04.2022.pdf"target="_blank">Wertekatalog der FH Vorarlberg</a><li><a href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-kriterienkatalog-beurteilung-forschungsvorhaben-23.pdf"target="_blank">Kriterienkatalog</a><li><a href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-verfahrensordnung-fhv-23.pdf"target="_blank">Verfahrensordnung der FE-K</a><li><a href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-satzung-forschungsethik-kommission-fhv-23.pdf"target="_blank">Satzung der FE-K</a></ul><p>Gleichzeitig unterstützt Sie dieser Formular-Assistent, sollte festgestellt werden, dass ein Ethikantrag womöglich nicht zwingend notwendig ist.<br>Bei Fragen können Sie sich zudem jederzeit an den Vorsitz der Forschungsethik-Kommission wenden.',
                 ],
                 'submitScreen' => [
                     'title' => 'Ethikantrag erfolgreich eingereicht!',
-                    'content' => '',
+                    'content' => 'Liebe Nutzer:in,<br><br>der Ethikantrag wurde erfolgreich zur Überprüfung eingereicht!<br><br><strong>Was sind die nächsten Schritte?</strong><br>Die Forschungsethik-Kommission widmet sich dem eingereichten Antrag im Rahmen der nächsten Sitzung der Kommission. Die Ergebnisse der Sitzung in Form der ethischen Stellungnahme sowie des abschließenden Votums werden über das Portal zur Verfügung gestellt - Sie werden mittels E-Mail informiert.<br><br>Sollte die Forschungsethik-Kommission weiterführende Informationen von Ihnen benötigen, wird sie gesondert auf Sie zukommen.',
                 ],
                 'sections' => [
                     [
                         'title' => 'Forschungs- oder Entwicklungsvorhaben',
-                        'description' => '',
+                        'description' => null,
                         'position' => 1,
                         'elements' => [
                             [
@@ -129,6 +135,12 @@ final class FormFixtures extends ProductionFixture
                                 'placeholder' => null,
                             ],
                         ],
+                        'metaInformation' => [
+                            'category' => [
+                                'name' => 'universal',
+                                'value' => null,
+                            ],
+                        ],
                     ],
                     [
                         'title' => 'Rahmenbedingungen im Falle einer Forschungs- und Entwicklungs-Kooperation',
@@ -155,6 +167,12 @@ final class FormFixtures extends ProductionFixture
                                 'description' => null,
                                 'position' => 3,
                                 'placeholder' => null,
+                            ],
+                        ],
+                        'metaInformation' => [
+                            'category' => [
+                                'name' => 'funding',
+                                'value' => 'cooperation',
                             ],
                         ],
                     ],
@@ -185,6 +203,12 @@ final class FormFixtures extends ProductionFixture
                                 'placeholder' => null,
                             ],
                         ],
+                        'metaInformation' => [
+                            'category' => [
+                                'name' => 'funding',
+                                'value' => 'third-party',
+                            ],
+                        ],
                     ],
                     [
                         'title' => 'Rahmenbedingungen im Falle eines ausschließlich eigenmittelfinanzierten Forschungs- und Entwicklungsprojektes',
@@ -204,6 +228,12 @@ final class FormFixtures extends ProductionFixture
                                 'description' => null,
                                 'position' => 2,
                                 'placeholder' => null,
+                            ],
+                        ],
+                        'metaInformation' => [
+                            'category' => [
+                                'name' => 'funding',
+                                'value' => 'equity',
                             ],
                         ],
                     ],
@@ -234,10 +264,16 @@ final class FormFixtures extends ProductionFixture
                                 'placeholder' => null,
                             ],
                         ],
+                        'metaInformation' => [
+                            'category' => [
+                                'name' => 'funding',
+                                'value' => 'student',
+                            ],
+                        ],
                     ],
                     [
                         'title' => 'Zielsetzung des Forschungs- oder Entwicklungsvorhabens',
-                        'description' => '',
+                        'description' => null,
                         'position' => 6,
                         'elements' => [
                             [
@@ -255,10 +291,16 @@ final class FormFixtures extends ProductionFixture
                                 'placeholder' => null,
                             ],
                         ],
+                        'metaInformation' => [
+                            'category' => [
+                                'name' => 'universal',
+                                'value' => null,
+                            ],
+                        ],
                     ],
                     [
                         'title' => 'Im Falle von wissenschaftlichen Studien an oder mit Menschen',
-                        'description' => '',
+                        'description' => null,
                         'position' => 7,
                         'elements' => [
                             [
@@ -360,10 +402,16 @@ final class FormFixtures extends ProductionFixture
                                 'placeholder' => null,
                             ],
                         ],
+                        'metaInformation' => [
+                            'category' => [
+                                'name' => 'humans',
+                                'value' => null,
+                            ],
+                        ],
                     ],
                     [
                         'title' => 'Im Falle einer Entwicklung eines Produkts (oder Prototypen)',
-                        'description' => '',
+                        'description' => null,
                         'position' => 8,
                         'elements' => [
                             [
@@ -458,10 +506,16 @@ final class FormFixtures extends ProductionFixture
                                 'placeholder' => null,
                             ],
                         ],
+                        'metaInformation' => [
+                            'category' => [
+                                'name' => 'prototype',
+                                'value' => null,
+                            ],
+                        ],
                     ],
                     [
                         'title' => 'Zum Datenschutz in Studien oder der Produktanwendung',
-                        'description' => '',
+                        'description' => null,
                         'position' => 9,
                         'elements' => [
                             [
@@ -528,6 +582,12 @@ final class FormFixtures extends ProductionFixture
                                 'placeholder' => null,
                             ],
                         ],
+                        'metaInformation' => [
+                            'category' => [
+                                'name' => 'universal',
+                                'value' => null,
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -565,6 +625,8 @@ final class FormFixtures extends ProductionFixture
                 title: $sectionData['title'],
                 description: $sectionData['description'],
                 position: $sectionData['position'],
+                metaCategoryName: $sectionData['metaInformation']['category']['name'],
+                metaCategoryValue: $sectionData['metaInformation']['category']['value']
             );
 
             foreach ($sectionData['elements'] as $elementData) {

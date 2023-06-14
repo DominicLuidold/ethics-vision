@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Form\Domain\Model\Form;
 
 use App\Common\Domain\Id\SectionId;
+use App\Form\Domain\Model\MetaInformation\MetaCategoryValueObject;
+use App\Form\Domain\Model\MetaInformation\SectionMetaInformationValueObject;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Fusonic\DDDExtensions\Domain\Model\EntityInterface;
@@ -20,20 +22,33 @@ class Section implements EntityInterface
         private SectionId $id,
         private readonly Form $form,
         private string $title,
-        private string $description,
+        private ?string $description,
         private int $position,
+        private SectionMetaInformationValueObject $metaInformation,
     ) {
         $this->elements = new ArrayCollection();
     }
 
-    public static function create(Form $form, string $title, string $description, int $position): self
-    {
+    public static function create(
+        Form $form,
+        string $title,
+        ?string $description,
+        int $position,
+        string $metaCategoryName,
+        string $metaCategoryValue = null
+    ): self {
         return new self(
             id: new SectionId(null),
             form: $form,
             title: $title,
             description: $description,
             position: $position,
+            metaInformation: new SectionMetaInformationValueObject(
+                category: new MetaCategoryValueObject(
+                    name: $metaCategoryName,
+                    value: $metaCategoryValue
+                )
+            ),
         );
     }
 
@@ -68,7 +83,7 @@ class Section implements EntityInterface
         return $this->title;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -76,6 +91,11 @@ class Section implements EntityInterface
     public function getPosition(): int
     {
         return $this->position;
+    }
+
+    public function getMetaInformation(): SectionMetaInformationValueObject
+    {
+        return $this->metaInformation;
     }
 
     public function hasElement(Element $possibleSectionElement): bool

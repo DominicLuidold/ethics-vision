@@ -47,6 +47,12 @@ abstract class EntityIntegerIdType extends Type
         return $object;
     }
 
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        // Add comment to prevent doctrine from always detecting changes that need to be applied to the schema.
+        return true;
+    }
+
     /**
      * @return class-string
      */

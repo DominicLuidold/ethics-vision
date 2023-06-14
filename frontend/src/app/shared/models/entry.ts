@@ -1,4 +1,5 @@
-import { ElementEntry } from "./element-entry";
+import {ElementEntry} from "./element-entry";
+import {EntryMetaInformation} from "./entry-meta-information";
 
 export interface Entry {
     id?: number;
@@ -6,4 +7,6 @@ export interface Entry {
     elementEntries?: ElementEntry[];
     createdAt: Date;
     updatedAt: Date;
+    submittedAt?: Date;
+    metaInformation: EntryMetaInformation;
 }

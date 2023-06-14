@@ -1,0 +1,9 @@
+<h2 class="test" mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+    <p [innerHTML]="content"></p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button button mat-button mat-dialog-close class="action-button" routerLink="/dashboard">
+        Weiter zum Dashboard
+    </button>
+</mat-dialog-actions>

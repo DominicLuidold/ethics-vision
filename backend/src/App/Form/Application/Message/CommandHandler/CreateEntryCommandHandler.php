@@ -27,7 +27,7 @@ final readonly class CreateEntryCommandHandler implements CommandHandlerInterfac
             throw new NotFoundHttpException();
         }
 
-        $entry = Entry::create($form);
+        $entry = Entry::create(form: $form, metaInformation: $command->metaInformation);
         $this->entryRepository->saveEntity($entry);
 
         return MinimalEntryDto::fromEntry($entry);

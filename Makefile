@@ -35,7 +35,7 @@ rebuild: ## Forces a rebuild of the custom Docker images.
 
 ## Setup
 setup: ## Run the `/backend/bin/setup.sh` script in the backend container.
-	@docker exec -it ${PROJECT_NAME}-backend-1 /var/www/app/bin/setup.sh
+	@docker exec -it ${PROJECT_NAME}-backend-1 /var/www/app/bin/setup.sh || true
 
 ## Help
 help: ## Show available commands.

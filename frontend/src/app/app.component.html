@@ -1,11 +1,11 @@
 <mat-toolbar class="header">
     <button mat-icon-button (click)="sidenav.open()" *ngIf="!sidenav.opened" matTooltip="Menü öffnen"
-        [matTooltipShowDelay]="1250" aria-label="Seitenmenü öffnen">
+            [matTooltipShowDelay]="1250" aria-label="Seitenmenü öffnen">
         <mat-icon>menu</mat-icon>
     </button>
 
     <button mat-icon-button (click)="sidenav.toggle()" *ngIf="sidenav.opened" matTooltip="Menü schließen"
-        [matTooltipShowDelay]="1250" aria-label="Seitenmenü schließen">
+            [matTooltipShowDelay]="1250" aria-label="Seitenmenü schließen">
         <mat-icon>close</mat-icon>
     </button>
 
@@ -24,25 +24,25 @@
                 <span matListItemTitle>Neuen Antrag stellen</span>
             </a>
             <a mat-list-item (click)="sidenav.close()" href="https://www.fhv.at/forschung/forschungsethik-kommission"
-                target="_blank" rel="nofollow noreferrer">
+               target="_blank" rel="nofollow noreferrer">
                 <mat-icon matListItemIcon>open_in_new</mat-icon>
                 <span matListItemTitle>Forschungsethik-Kommission</span>
             </a>
             <a mat-list-item (click)="sidenav.close()"
-                href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-satzung-forschungsethik-kommission-fhv-23.pdf"
-                target="_blank" rel="nofollow noreferrer">
+               href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-satzung-forschungsethik-kommission-fhv-23.pdf"
+               target="_blank" rel="nofollow noreferrer">
                 <mat-icon matListItemIcon>open_in_new</mat-icon>
                 <span matListItemTitle>Satzung</span>
             </a>
             <a mat-list-item (click)="sidenav.close()"
-                href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-verfahrensordnung-fhv-23.pdf"
-                target="_blank" rel="nofollow noreferrer">
+               href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-verfahrensordnung-fhv-23.pdf"
+               target="_blank" rel="nofollow noreferrer">
                 <mat-icon matListItemIcon>open_in_new</mat-icon>
                 <span matListItemTitle>Verfahrensordnung</span>
             </a>
             <a mat-list-item (click)="sidenav.close()"
-                href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-kriterienkatalog-beurteilung-forschungsvorhaben-23.pdf"
-                target="_blank" rel="nofollow noreferrer">
+               href="https://www.fhv.at/forschen/forschungsethikkommission/fhv-kriterienkatalog-beurteilung-forschungsvorhaben-23.pdf"
+               target="_blank" rel="nofollow noreferrer">
                 <mat-icon matListItemIcon>open_in_new</mat-icon>
                 <span matListItemTitle>Kriterienkatalog</span>
             </a>
@@ -50,7 +50,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="content" role="main">
-        <router-outlet />
+        <router-outlet/>
     </mat-sidenav-content>
 </mat-sidenav-container>
 
@@ -59,15 +59,15 @@
         <span>EthicsVision</span>
 
         <span class="smaller-text">Copyright &copy; 2023 - <a
-                href="https://www.fhv.at/forschung/forschungsethik-kommission" target="_blank"
-                rel="noreferrer nofollow">Forschungsethik-Kommission der Fachhochschule Vorarlberg
+            href="https://www.fhv.at/forschung/forschungsethik-kommission" target="_blank"
+            rel="noreferrer nofollow">Forschungsethik-Kommission der Fachhochschule Vorarlberg
                 GmbH</a>
         </span>
     </div>
 
     <div class="footer-logo">
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 460 460" class="fhv-logo"
-            aria-hidden="true">
+             aria-hidden="true">
             <path d="M10.8 346.8h337.5V234.3H10.8V121.7h337.6V9.1H461v450.2H10.9l-.1-112.5z"></path>
         </svg>
     </div>

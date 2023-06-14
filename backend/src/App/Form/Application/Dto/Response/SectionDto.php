@@ -7,6 +7,7 @@ namespace App\Form\Application\Dto\Response;
 use App\Common\Domain\Id\SectionId;
 use App\Form\Domain\Model\Form\Element;
 use App\Form\Domain\Model\Form\Section;
+use App\Form\Domain\Model\MetaInformation\SectionMetaInformationValueObject;
 
 final readonly class SectionDto
 {
@@ -16,9 +17,10 @@ final readonly class SectionDto
     private function __construct(
         public SectionId $id,
         public string $title,
-        public string $description,
+        public ?string $description,
         public int $position,
         public array $elements,
+        public SectionMetaInformationValueObject $metaInformation,
     ) {
     }
 
@@ -33,6 +35,7 @@ final readonly class SectionDto
                 callback: static fn (Element $element) => ElementDto::fromElement($element),
                 array: $section->getElements()
             ),
+            metaInformation: $section->getMetaInformation(),
         );
     }
 }

@@ -15,6 +15,7 @@ final class MinimalEntryDto
         public EntryStatus $status,
         public \DateTimeInterface $createdAt,
         public \DateTimeInterface $updatedAt,
+        public ?\DateTimeInterface $submittedAt,
     ) {
     }
 
@@ -24,7 +25,8 @@ final class MinimalEntryDto
             id: $entry->getId(),
             status: $entry->getStatus(),
             createdAt: $entry->getCreatedAt(),
-            updatedAt: $entry->getUpdatedAt()
+            updatedAt: $entry->getUpdatedAt(),
+            submittedAt: $entry->getSubmittedAt(),
         );
     }
 }
