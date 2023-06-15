@@ -9,8 +9,7 @@
     </mat-card-header>
     <mat-card-content>
         <mat-vertical-stepper #stepper>
-            <mat-step *ngFor="let step of steps; let i = index" [stepControl]="step.formGroup" [label]="step.title"
-                [editable]="mode === 'EDIT'">
+            <mat-step *ngFor="let step of steps; let i = index" [stepControl]="step.formGroup" [label]="step.title">
                 <span class="step-description">{{ step.description }}</span>
 
                 <form [formGroup]="step.formGroup" class="form">
@@ -30,7 +29,7 @@
                             <ng-container *ngIf="'TEXT_LONG' === getElementDetailsById('type', control.key)">
                                 <textarea matInput [formControlName]="control.key" required
                                     (blur)="onInputBlur(control.key, step.formGroup)"
-                                    readonly]="mode === 'READ_ONLY'"></textarea>
+                                    [readonly]="mode === 'READ_ONLY'"></textarea>
                             </ng-container>
 
                             <mat-hint *ngIf="'null' !== getElementDetailsById('description', control.key)">

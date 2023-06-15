@@ -15,7 +15,7 @@ export class EntryTableComponent implements OnInit, OnChanges {
     public mode!: EntryTableMode;
 
     @Input({required: true})
-    public data!: PaginatedResponse<Entry>;
+    public data?: PaginatedResponse<Entry>;
 
     dataSource: MatTableDataSource<Entry> = new MatTableDataSource<Entry>();
     displayedColumns: string[] = [];

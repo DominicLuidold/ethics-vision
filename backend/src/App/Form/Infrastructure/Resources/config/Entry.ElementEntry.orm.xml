@@ -16,6 +16,6 @@
             <join-column on-delete="CASCADE" nullable="false"/>
         </many-to-one>
 
-        <field name="value" type="string" nullable="false"/>
+        <field name="value" type="text" nullable="false"/>
     </entity>
 </doctrine-mapping>
